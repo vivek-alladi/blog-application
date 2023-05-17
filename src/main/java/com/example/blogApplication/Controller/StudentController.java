@@ -71,4 +71,11 @@ public class StudentController {
         return student;
     }
 
+    //rest-api delete request
+    @DeleteMapping("students/{id}/delete")
+    public String deleteStudent(@PathVariable("id") int studentId){
+        String message = "student " + studentId + " deleted successfully";
+        return message;
+    }
+
 }
