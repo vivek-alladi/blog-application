@@ -59,7 +59,16 @@ public class StudentController {
         System.out.println(student.getFirstName());
         System.out.println(student.getLastName());
         return student;
+    }
 
+    // http put request
+    @PutMapping("students/{id}/update")
+    public Student updateStudent(@RequestBody Student student, @PathVariable("id") int studentId){
+        System.out.println(studentId);
+        student.setId(10);
+        System.out.println(student.getFirstName());
+        System.out.println(student.getLastName());
+        return student;
     }
 
 }
