@@ -3,6 +3,7 @@ package com.example.blogApplication.Controller;
 
 import com.example.blogApplication.Bean.Student;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -13,9 +14,11 @@ public class StudentController {
 
 //    returning java bean as json
     @GetMapping("student")
-    public Student getStudent(){
+    public ResponseEntity<Student> getStudent(){
         Student student = new Student(1,"ravi","kishore");
-        return student;
+        //return new ResponseEntity<>(student, HttpStatus.OK);
+        //return ResponseEntity.ok(student);
+        return ResponseEntity.ok().header("custom-header", "custom-value").body(student);
     }
 
 //    returning java bean list as json
@@ -54,11 +57,11 @@ public class StudentController {
 //    rest api that handles post request
     @PostMapping("students/create")
     @ResponseStatus(HttpStatus.CREATED)
-    public Student createStudent(@RequestBody Student student){
+    public ResponseEntity<Student> createStudent(@RequestBody Student student){
         System.out.println(student.getId());
         System.out.println(student.getFirstName());
         System.out.println(student.getLastName());
-        return student;
+        return new ResponseEntity<>(student, HttpStatus.CREATED);
     }
 
     // http put request
