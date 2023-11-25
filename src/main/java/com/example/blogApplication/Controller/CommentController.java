@@ -41,4 +41,12 @@ public class CommentController {
             @RequestBody CommentDto commentDto) throws BlogApiException {
         return new ResponseEntity<>(commentService.updateCommentById(postId, commentId, commentDto), HttpStatus.OK);
     }
+
+    @DeleteMapping("posts/{postId}/comments/{commentId}")
+    public ResponseEntity<String> deleteCommentById(
+            @PathVariable long postId,
+            @PathVariable long commentId) throws BlogApiException {
+        commentService.deleteCommentById(postId, commentId);
+        return new ResponseEntity<>("Comment deleted successfully", HttpStatus.OK);
+    }
 }
