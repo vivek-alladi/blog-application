@@ -3,6 +3,7 @@ package com.example.blogApplication.Controller;
 import com.example.blogApplication.Exceptions.BlogApiException;
 import com.example.blogApplication.Payload.CommentDto;
 import com.example.blogApplication.Service.CommentService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +21,7 @@ public class CommentController {
     }
 
     @PostMapping("posts/{postId}/comments")
-    public ResponseEntity<CommentDto> createComment(@PathVariable long postId, @RequestBody CommentDto commentDto) {
+    public ResponseEntity<CommentDto> createComment(@PathVariable long postId, @RequestBody @Valid CommentDto commentDto) {
         return new ResponseEntity<>(commentService.createComment(postId, commentDto), HttpStatus.CREATED);
     }
 
@@ -38,7 +39,7 @@ public class CommentController {
     public ResponseEntity<CommentDto> updateCommentById(
             @PathVariable long postId,
             @PathVariable long commentId,
-            @RequestBody CommentDto commentDto) throws BlogApiException {
+            @RequestBody @Valid CommentDto commentDto) throws BlogApiException {
         return new ResponseEntity<>(commentService.updateCommentById(postId, commentId, commentDto), HttpStatus.OK);
     }
 
