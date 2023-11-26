@@ -22,10 +22,18 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(BlogApiException.class)
     public ResponseEntity<ErrorDetails> handleBlogApiException(
-            ResourceNotFoundException exception, WebRequest webRequest) {
+            BlogApiException exception, WebRequest webRequest) {
         ErrorDetails errorDetails = new ErrorDetails(new Date(), exception.getMessage(),
                 webRequest.getDescription(false));
         return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorDetails> handleException(
+            Exception exception, WebRequest webRequest) {
+        ErrorDetails errorDetails = new ErrorDetails(new Date(), exception.getMessage(),
+                webRequest.getDescription(false));
+        return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 }
