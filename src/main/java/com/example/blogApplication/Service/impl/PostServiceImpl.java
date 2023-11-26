@@ -6,6 +6,7 @@ import com.example.blogApplication.Payload.PostDto;
 import com.example.blogApplication.Payload.PostResponse;
 import com.example.blogApplication.Repository.PostRepository;
 import com.example.blogApplication.Service.PostService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,9 +21,12 @@ public class PostServiceImpl implements PostService {
 
     private PostRepository postRepository;
 
+    private ModelMapper modelMapper;
+
     @Autowired
-    public PostServiceImpl(PostRepository postRepository) {
+    public PostServiceImpl(PostRepository postRepository, ModelMapper modelMapper) {
         this.postRepository = postRepository;
+        this.modelMapper = modelMapper;
     }
 
     @Override
@@ -80,23 +84,25 @@ public class PostServiceImpl implements PostService {
 
     //    entity to postdto
     private PostDto mapToDto(Post post) {
-        PostDto postDto = new PostDto();
-        postDto.setContent(post.getContent());
-        postDto.setTitle(post.getTitle());
-        postDto.setDescription(post.getDescription());
-        postDto.setId(post.getId());
 
-        return postDto;
+        return modelMapper.map(post, PostDto.class);
+//        PostDto postDto = new PostDto();
+//        postDto.setContent(post.getContent());
+//        postDto.setTitle(post.getTitle());
+//        postDto.setDescription(post.getDescription());
+//        postDto.setId(post.getId());
     }
 
     //    postdto to entity
     private Post mapToEntity(PostDto postDto) {
-        Post post = new Post();
-        post.setContent(postDto.getContent());
-        post.setTitle(postDto.getTitle());
-        post.setDescription(postDto.getDescription());
+//        Post post = new Post();
+//        post.setContent(postDto.getContent());
+//        post.setTitle(postDto.getTitle());
+//        post.setDescription(postDto.getDescription());
+//
+//        return post;
 
-        return post;
+        return modelMapper.map(postDto, Post.class);
 
     }
 }
