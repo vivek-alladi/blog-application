@@ -4,6 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.NonNull;
 
@@ -19,6 +20,6 @@ public class CommentDto {
     private String email;
 
     @NotEmpty
-    @Min(value = 10, message = "minimum 10 characters")
+    @Size(min = 10, message = "minimum 10 characters")
     private String body;
 }
